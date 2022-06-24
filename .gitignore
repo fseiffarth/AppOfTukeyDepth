@@ -1,0 +1,8 @@
+/TukeyDepth/cmake-build-debug/
+/TukeyDepth/cmake-build-release/
+/TukeyDepth/out/
+/Approximation/cmake-build-release/
+/Approximation/cmake-build-debug/
+/Evaluation/cmake-build-debug/
+/Evaluation/cmake-build-release/
+*.idea
