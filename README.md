@@ -10,7 +10,7 @@ As a prerequisite you need at least *Cmake 3.20* and *gcc 9.4.0*:
 
 **Installation and running test examples**
 
-> Execute the installation file to install all libraries and compile the code installation.sh:: ```./installation.sh```
+> Execute the installation file to install all libraries and compile the code installation.sh: ```./installation.sh```
 
 **Examples (MUTAG and Cuneiform and KarateClub, more data can be downloaded [here](https://chrsmrrs.github.io/datasets/docs/datasets/))**
 
