@@ -7,17 +7,19 @@
 #include <FileEvaluation.h>
 #include <limits>
 #include <vector>
+#include <cstring>
 
 typedef std::vector<std::vector<int>> DEPTHS;
 
-void compare_tukey(const std::string& db, FileEvaluation& fileEvaluation)
+void compare_tukey(const std::string& input_path, const std::string& output_path, const std::string& db, FileEvaluation& fileEvaluation)
 {
-    std::string depth_approx_path = "../../Approximation/out/" +  db + ".approx_tukey_optimized";
-    std::string depth_path = "../../TukeyDepth/out/" + db + ".tukey";
+    std::string depth_approx_path = input_path +  db + ".approx_tukey_optimized";
+    std::string depth_path = input_path + db + ".tukey";
     DEPTHS approx_depths;
     DEPTHS depths;
     DataIO<int>::ReadTrivialMatrix(depth_path, depths);
     DataIO<int>::ReadTrivialMatrix(depth_approx_path, approx_depths);
+
     int approximationError = 0;
     int approximationAbsoluteError = 0;
 
@@ -80,12 +82,55 @@ void compare_tukey(const std::string& db, FileEvaluation& fileEvaluation)
 }
 
 int main(int argc, char *argv[]) {
-    std::string path = "../../out/";
     std::vector<std::string> dbs = {"MUTAG", "NCI1", "NCI109", "OHSU", "Peking_1", "PTC_FM", "PTC_FR", "PTC_MM", "PTC_MR", "COIL-DEL", "Cuneiform", "ENZYMES", "KKI", "MSRC_9", "MSRC_21"};
-    FileEvaluation f = FileEvaluation(path, "comparison");
-    for(auto const& db : dbs) {
-        std::cout << "DB: " << db << std::endl;
-        compare_tukey(db,f);
+    std::string input_path = "../../Graphs/";
+    std::string output_path = "../out/";
+    std::string argument;
+
+    for (int i = 0; i < argc; ++i) {
+        std::string str_argument = std::string(argv[i]);
+        bool str_argument_key = (str_argument[0] == '-');
+
+        if (str_argument_key){
+            argument.clear();
+
+            if (std::strcmp(argv[i], "-db") == 0 ) {
+                argument = "db";
+                dbs.clear();
+            }
+            else if (std::strcmp(argv[i], "-i") == 0 ) {
+                argument = "input";
+            }
+            else if (std::strcmp(argv[i], "-o") == 0 ) {
+                argument = "output";
+            }
+        }
+            // List arguments
+        else{
+            if (argument == "db")
+            {
+                dbs.emplace_back(std::string(argv[i]));
+            }
+            else if (argument == "input"){
+                input_path = std::string(argv[i]);
+            }
+            else if (argument == "output"){
+                output_path = std::string(argv[i]);
+            }
+        }
+    }
+
+    FileEvaluation f = FileEvaluation(output_path, "comparison");
+
+    if (!dbs.empty()) {
+        for (auto const &db: dbs) {
+            std::cout << "DB: " << db << std::endl;
+            compare_tukey(input_path, output_path, db, f);
+            std::cout << std::endl << std::endl;
+        }
+    }
+    else if(!input_path.empty()){
+        compare_tukey(input_path, output_path, "", f);
         std::cout << std::endl << std::endl;
     }
     f.save(false, true,std::ios_base::out);
