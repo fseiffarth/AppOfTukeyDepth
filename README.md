@@ -8,7 +8,7 @@ As a prerequisite you need at least *Cmake 3.20* and *gcc 9.4.0*:
 
 > Clone this repository and navigate to *AppOfTukeyDepth*: ```git clone git@github.com:fseiffarth/AppOfTukeyDepth.git && cd AppOfTukeyDepth```
 
-**Installation and running test examples**
+**Installation**
 
 > Execute the installation file to install all libraries and compile the code installation.sh: ```./installation.sh```
 
