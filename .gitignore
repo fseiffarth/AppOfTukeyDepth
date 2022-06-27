@@ -6,4 +6,6 @@
 /Evaluation/cmake-build-debug/
 /Evaluation/cmake-build-release/
 *.idea
-/out/
+/out/*
+/libs/*
+/libs/or-tools/
