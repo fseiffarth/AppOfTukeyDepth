@@ -9,6 +9,7 @@
 #include "GraphFunctions.h"
 #include <io.h>
 #include <StaticFunctions.h>
+#include <omp.h>
 
 
 using namespace operations_research;
@@ -92,12 +93,13 @@ using namespace operations_research;
         std::cout << std::endl;
     }
 
-void TukeyDepth::run_parallel(int id, const GraphStruct &graph, std::vector<int> &depths, int geodesicDistance) {
+void TukeyDepth::run_parallel(int id, const GraphStruct &graph, std::vector<int> &depths, int num_threads, int geodesicDistance) {
     if (geodesicDistance == -1){
         geodesicDistance = graph.nodes();
     }
     depths.clear();
     depths.resize(graph.nodes(),0);
+    omp_set_num_threads(num_threads);
 #pragma omp parallel for firstprivate(geodesicDistance) shared(graph,depths) default(none)
     for (int i = 0; i < graph.nodes(); ++i) {
         std::unique_ptr<MPSolver> solver(MPSolver::CreateSolver("SCIP"));
