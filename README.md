@@ -6,7 +6,8 @@ As a prerequisite you need at least *Cmake 3.20* and *gcc 9.4.0*:
 
 **Clone the Repository:**
 
-> Clone this repository and navigate to *AppOfTukeyDepth*: ```git clone git@github.com:fseiffarth/AppOfTukeyDepth.git && cd AppOfTukeyDepth```
+> Clone this repository and navigate to *AppOfTukeyDepth*: <br>
+> ```git clone git@github.com:fseiffarth/AppOfTukeyDepth.git && cd AppOfTukeyDepth```
 
 **Installation** (*compiling of or-tools need some minutes!*)
 
