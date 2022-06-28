@@ -16,3 +16,4 @@ mkdir Approximation/build && cd Approximation/build || exit
 cmake .. && make && cd .. && cd ..
 mkdir Evaluation/build && cd Evaluation/build || exit
 cmake .. && make && cd .. && cd ..
+mkdir out
