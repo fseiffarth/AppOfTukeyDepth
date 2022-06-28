@@ -10,7 +10,9 @@ wget https://snap.stanford.edu/releases/Snap-6.0.zip && unzip Snap-6.0.zip
 cd ..
 cp libs/fl.cpp libs/Snap-6.0/glib-core/
 #compile code
-mkdir TukeyDepth/build && cmake && make build/
-mkdir Approximation/build && cmake && make build/
-mkdir Evaluation/build && cmake && make build/
-mkdir out
+mkdir TukeyDepth/build && cd TukeyDepth/build || exit
+cmake .. && make && cd .. && cd ..
+mkdir Approximation/build && cd Approximation/build || exit
+cmake .. && make && cd .. && cd ..
+mkdir Evaluation/build && cd Evaluation/build || exit
+cmake .. && make && cd .. && cd ..
