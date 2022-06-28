@@ -8,7 +8,7 @@ As a prerequisite you need at least *Cmake 3.20* and *gcc 9.4.0*:
 
 > Clone this repository and navigate to *AppOfTukeyDepth*: ```git clone git@github.com:fseiffarth/AppOfTukeyDepth.git && cd AppOfTukeyDepth```
 
-**Installation**
+**Installation** (*compiling of or-tools need some minutes!*)
 
 > Make bash script files executable: ```chmod u+x installation.sh && chmod u+x examples.sh``` <br>
 > Install the code with: ```./installation.sh```
