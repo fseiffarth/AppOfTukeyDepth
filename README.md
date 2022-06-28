@@ -15,22 +15,22 @@ As a prerequisite you need at least *Cmake 3.20* and *gcc 9.4.0*:
 
 **Examples (MUTAG and Cuneiform and KarateClub, more data can be downloaded [here](https://chrsmrrs.github.io/datasets/docs/datasets/))**
 
-> **Run all examples** 
->> ```./examples.sh```
+> **Run all examples**  <br>
+> ```./examples.sh```
 
-> **Run single examples**
->> **Tukey Depth:** <br>
->> ```./TukeyDepth/build/TukeyDepth -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24``` <br>
->> ```./TukeyDepth/build/TukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24```
+> **Run single examples** <br>
+> **Tukey Depth:** <br>
+> ```./TukeyDepth/build/TukeyDepth -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24``` <br>
+> ```./TukeyDepth/build/TukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24```
 
->>**Tukey Depth Approximation:** <br>
->> ```./Approximation/build/ApproximateTukeyDepth -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24``` <br>
->> ```./Approximation/build/ApproximateTukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24```
+>**Tukey Depth Approximation:** <br>
+> ```./Approximation/build/ApproximateTukeyDepth -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24``` <br>
+> ```./Approximation/build/ApproximateTukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24```
 
->> **Core Examples:** <br>
->> ```./Approximation/build/ComputeCore -i Graphs/KarateClub.edges -o out/ -t 24``` <br>
->> ```./Approximation/build/ComputeCore -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24```
+> **Core Examples:** <br>
+> ```./Approximation/build/ComputeCore -i Graphs/KarateClub.edges -o out/ -t 24``` <br>
+> ```./Approximation/build/ComputeCore -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24```
 
->> **Evaluation** <br>
->> ```./Evaluation/build/EvaluateApproximation -i out/ -o out/ -db MUTAG Cuneiform KarateClub```
+> **Evaluation** <br>
+> ```./Evaluation/build/EvaluateApproximation -i out/ -o out/ -db MUTAG Cuneiform KarateClub```
 
