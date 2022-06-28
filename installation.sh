@@ -1,16 +1,15 @@
 #!/bin/bash
 #Script to install the AppOfTukeyDepth code
 #prepare libs folder
-unzip libs.zip && cd libs
+unzip libs.zip
 #install or-tools
-git clone https://github.com/google/or-tools && cd or-tools && make third_party && make cc && make test_cc
+git clone https://github.com/google/or-tools libs/ && make libs/or-tools/third_party && make libs/or-tools/cc && make libs/or-tools/test_cc
 #install Snap-6.0
-cd .. && wget https://snap.stanford.edu/releases/Snap-6.0.zip && unzip Snap-6.0.zip
-cp fl.cpp Snap-6.0/glib-core/
+wget https://snap.stanford.edu/releases/Snap-6.0.zip libs/ && unzip libs/Snap-6.0.zip
+cp libs/fl.cpp libs/Snap-6.0/glib-core/
 #compile code
-cd .. && cd TukeyDepth && mkdir build && cd build && cmake .. && make 
-cd .. && cd .. && cd Approximation && mkdir build && cd build && cmake .. && make 
-cd .. && cd .. && cd Evaluation && mkdir build && cd build && cmake .. && make 
-cd .. && cd ..
+mkdir TukeyDepth/build && cmake && make build/
+mkdir Approximation/build && cmake && make build/
+mkdir Evaluation/build && cmake && make build/
 mkdir out
 
