@@ -7,7 +7,7 @@ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
-set(CMAKE_PREFIX_PATH "../../LibsExternal/or-tools")
+set(CMAKE_PREFIX_PATH "../libs/or-tools")
 find_package(ortools CONFIG REQUIRED)
 
 find_package(OpenMP)
