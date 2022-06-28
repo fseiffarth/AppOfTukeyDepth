@@ -13,7 +13,7 @@ As a prerequisite you need at least *Cmake 3.20* and *gcc 9.4.0*:
 > Make bash script files executable: ```chmod u+x installation.sh && chmod u+x examples.sh``` <br>
 > Install the code with: ```./installation.sh```
 
-**Examples (MUTAG and Cuneiform and KarateClub, more data can be downloaded [here](https://chrsmrrs.github.io/datasets/docs/datasets/))**
+**Examples (MUTAG, Cuneiform and KarateClub, more data can be downloaded [here](https://chrsmrrs.github.io/datasets/docs/datasets/))**
 
 > **Run all examples**  <br>
 > ```./examples.sh```
