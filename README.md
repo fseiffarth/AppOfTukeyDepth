@@ -21,16 +21,13 @@ As a prerequisite you need at least *Cmake 3.20* and *gcc 9.4.0*:
 > **Run single examples** <br>
 >> **Tukey Depth:** <br>
 >> ```./TukeyDepth/build/TukeyDepth -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24``` <br>
->> ```./TukeyDepth/build/TukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24```
-
+>> ```./TukeyDepth/build/TukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24``` <br>
 >>**Tukey Depth Approximation:** <br>
 >> ```./Approximation/build/ApproximateTukeyDepth -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24``` <br>
->> ```./Approximation/build/ApproximateTukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24```
-
+>> ```./Approximation/build/ApproximateTukeyDepth -i Graphs/KarateClub.edges -o out/ -t 24``` <br>
 >> **Core Examples:** <br>
 >> ```./Approximation/build/ComputeCore -i Graphs/KarateClub.edges -o out/ -t 24``` <br>
->> ```./Approximation/build/ComputeCore -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24```
-
+>> ```./Approximation/build/ComputeCore -i Graphs/ -o out/ -db MUTAG Cuneiform -t 24``` <br>
 >> **Evaluation** <br>
 >> ```./Evaluation/build/EvaluateApproximation -i out/ -o out/ -db MUTAG Cuneiform KarateClub```
 
