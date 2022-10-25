@@ -27,3 +27,5 @@ file(GLOB IO_LIB CONFIGURE_DEPENDS "../libs/libIO/include/*.h" "../libs/libIO/in
 
 add_executable(TukeyDepth main.cpp Algorithm/TukeyDepth.cpp Algorithm/TukeyDepth.h ${GRAPH_LIB} ${IO_LIB})
 target_link_libraries(TukeyDepth ortools::ortools)
+add_executable(TukeyComputation tukey.cpp Algorithm/TukeyDepth.cpp Algorithm/TukeyDepth.h ${GRAPH_LIB} ${IO_LIB})
+target_link_libraries(TukeyComputation ortools::ortools)

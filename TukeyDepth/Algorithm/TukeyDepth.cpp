@@ -13,19 +13,19 @@
 
 
 using namespace operations_research;
-    void TukeyDepth::run(int id, const GraphStruct& graph, std::vector<int>& depths, int geodesicDistance) {
+    void TukeyDepth::run(Indices id, const GraphStruct& graph, std::vector<Indices>& depths, Indices geodesicDistance) {
         if (geodesicDistance == -1){
             geodesicDistance = graph.nodes();
         }
         depths.clear();
-        for (int i = 0; i < graph.nodes(); ++i) {
+        for (Indices i = 0; i < graph.nodes(); ++i) {
             std::unique_ptr<MPSolver> solver(MPSolver::CreateSolver("SCIP"));
             if (!solver) {
                 //LOG(WARNING) << "SCIP solver unavailable.";
                 return;
             }
 
-            for (int j = 0; j < graph.nodes(); ++j) {
+            for (Indices j = 0; j < graph.nodes(); ++j) {
                 if (i == j) {
                     solver->MakeIntVar(1.0, 1.0, "x" + std::to_string(j));
                 }
@@ -37,16 +37,16 @@ using namespace operations_research;
 
             const double infinity = solver->infinity();
 
-            std::vector<std::vector<int>> distance_matrix = std::vector<std::vector<int>>(graph.nodes(),std::vector<int>(graph.nodes(), 0));
+            std::vector<std::vector<Indices>> distance_matrix = std::vector<std::vector<Indices>>(graph.nodes(),std::vector<Indices>(graph.nodes(), 0));
 
-            for (int j = 0; j < graph.nodes(); ++j) {
+            for (Indices j = 0; j < graph.nodes(); ++j) {
                 GraphFunctions::BFSDistances(graph, j, distance_matrix[j]);
             }
 
-            for (int u = 0; u < graph.nodes(); ++u) {
-                for (int w = u + 1; w < graph.nodes(); ++w) {
+            for (Indices u = 0; u < graph.nodes(); ++u) {
+                for (Indices w = u + 1; w < graph.nodes(); ++w) {
                     if (distance_matrix[u][w] <= geodesicDistance) {
-                        for (int s = 0; s < graph.nodes(); ++s) {
+                        for (Indices s = 0; s < graph.nodes(); ++s) {
                             if (s != u && s != w) {
                                 if (distance_matrix[u][s] + distance_matrix[s][w] == distance_matrix[u][w]) {
                                     // 0 <= x_u + x_w - x_s => if u and w are closed then also s
@@ -60,7 +60,7 @@ using namespace operations_research;
                     }
                 }
             }
-            //LOG(INFO) << "Number of constraints = " << solver->NumConstraints();
+            //LOG(INFO) << "Number of constraIndicess = " << solver->NumConstraIndicess();
 
             //Objective
             MPObjective *const objective = solver->MutableObjective();
@@ -93,20 +93,29 @@ using namespace operations_research;
         std::cout << std::endl;
     }
 
-void TukeyDepth::run_parallel(int id, const GraphStruct &graph, std::vector<int> &depths, int num_threads, int geodesicDistance) {
+void TukeyDepth::run_parallel(Indices id, const GraphStruct &graph, std::vector<Indices> &depths, Indices num_threads, Indices geodesicDistance) {
     if (geodesicDistance == -1){
         geodesicDistance = graph.nodes();
     }
     depths.clear();
     depths.resize(graph.nodes(),0);
     omp_set_num_threads(num_threads);
-#pragma omp parallel for firstprivate(geodesicDistance) shared(graph,depths) default(none)
-    for (int i = 0; i < graph.nodes(); ++i) {
+
+    std::vector<std::vector<Indices>> distance_matrix = std::vector<std::vector<Indices>>(graph.nodes(),std::vector<Indices>(graph.nodes(), 0));
+    for (Indices j = 0; j < graph.nodes(); ++j) {
+        GraphFunctions::BFSDistances(graph, j, distance_matrix[j]);
+    }
+
+#pragma omp parallel for firstprivate(geodesicDistance) shared(graph,depths, distance_matrix) default(none)
+    for (Indices i = 0; i < graph.nodes(); ++i) {
+        std::stringstream stream;
+        stream << i << std::endl;
+        StaticFunctionsLib::PrintStream(stream);
         std::unique_ptr<MPSolver> solver(MPSolver::CreateSolver("SCIP"));
         if (!solver) {
             //LOG(WARNING) << "SCIP solver unavailable.";
         } else {
-            for (int j = 0; j < graph.nodes(); ++j) {
+            for (Indices j = 0; j < graph.nodes(); ++j) {
                 if (i == j) {
                     solver->MakeIntVar(1.0, 1.0, "x" + std::to_string(j));
                 } else {
@@ -117,16 +126,12 @@ void TukeyDepth::run_parallel(int id, const GraphStruct &graph, std::vector<int>
 
             const double infinity = solver->infinity();
 
-            std::vector<std::vector<int>> distance_matrix = std::vector<std::vector<int>>(graph.nodes(),std::vector<int>(graph.nodes(), 0));
 
-            for (int j = 0; j < graph.nodes(); ++j) {
-                GraphFunctions::BFSDistances(graph, j, distance_matrix[j]);
-            }
 
-            for (int u = 0; u < graph.nodes(); ++u) {
-                for (int w = u + 1; w < graph.nodes(); ++w) {
+            for (Indices u = 0; u < graph.nodes(); ++u) {
+                for (Indices w = u + 1; w < graph.nodes(); ++w) {
                     if (distance_matrix[u][w] <= geodesicDistance) {
-                        for (int s = 0; s < graph.nodes(); ++s) {
+                        for (Indices s = 0; s < graph.nodes(); ++s) {
                             if (s != u && s != w) {
                                 if (distance_matrix[u][s] + distance_matrix[s][w] == distance_matrix[u][w]) {
                                     // 0 <= x_u + x_w - x_s => if u and w are closed then also s
@@ -140,7 +145,7 @@ void TukeyDepth::run_parallel(int id, const GraphStruct &graph, std::vector<int>
                     }
                 }
             }
-            //LOG(INFO) << "Number of constraints = " << solver->NumConstraints();
+            //LOG(INFO) << "Number of constraIndicess = " << solver->NumConstraIndicess();
 
             //Objective
             MPObjective *const objective = solver->MutableObjective();
@@ -160,13 +165,13 @@ void TukeyDepth::run_parallel(int id, const GraphStruct &graph, std::vector<int>
             for (auto *const var: solver->variables()) {
                 //LOG(INFO) << var->name() << " = " << var->solution_value();
             }
-            depths[i] = (int) objective->Value();
+            depths[i] = (Indices) objective->Value();
         }
         std::stringstream ss;
         for (auto x: depths) {
             ss << x << " ";
         }
         ss << std::endl;
-        //PrintStream(ss);
+        //PrIndicesStream(ss);
     }
 }

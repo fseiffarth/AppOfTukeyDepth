@@ -9,8 +9,8 @@
 
 class TukeyDepth {
 public:
-    static void run(int id, const GraphStruct& graph, std::vector<int>& depths, int geodesicDistance = -1);
-    static void run_parallel(int id, const GraphStruct& graph, std::vector<int>& depths, int num_threads, int geodesicDistance = -1);
+    static void run(Indices id, const GraphStruct& graph, std::vector<Indices>& depths, Indices geodesicDistance = -1);
+    static void run_parallel(Indices id, const GraphStruct& graph, std::vector<Indices>& depths, Indices num_threads, Indices geodesicDistance = -1);
 };
 
 
